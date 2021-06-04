@@ -12,6 +12,22 @@
 
                 <b-button variant="outline-secondary" class="m-1" @click="reset">Reset</b-button>
                 <b-button variant="outline-secondary" class="m-1" @click="generatorBigPrime">Generator 192 bits Prime</b-button>
+                
+                <label class="mb-1">Nhap toa do Px</label>
+                <b-form-input v-model="Px" type="number" placeholder="Nhap toa do Px" class="mb-4"></b-form-input>
+                <label class="mb-1">Nhap toa do Py</label>
+                <b-form-input v-model="Py" type="number" placeholder="Nhap toa do Py" class="mb-4"></b-form-input>
+                <label class="mb-1">Nhap toa do Qx</label>
+                <b-form-input v-model="Qx" type="number" placeholder="Nhap toa do Qx" class="mb-4"></b-form-input>
+                <label class="mb-1">Nhap toa do Qy</label>
+                <b-form-input v-model="Qy" type="number" placeholder="Nhap toa do Qy" class="mb-4"></b-form-input>
+                <label class="mb-1">Nhap he so n</label>
+                <b-form-input v-model="n" type="number" placeholder="Nhap he so n" class="mb-4"></b-form-input>
+
+                <b-button variant="outline-secondary" class="m-1" @click="plus">P + Q</b-button>
+                <b-button variant="outline-secondary" class="m-1" @click="multiply">P * n</b-button>
+
+
 
             </div>
             <div class="answer">
@@ -29,6 +45,10 @@
                             <li v-for="(point, index) in point_last" :key="index">{{point.toString()}}</li>
                         </ul>
                     </div>
+                </div>
+                <div>
+                    <p>Ket qua cua phep tinh tren duong cong Elliptic la:</p>
+                    <h3>{{result}}</h3>
                 </div>
                 <div v-if="scatterChartVue">
                     <VueApexCharts
@@ -59,9 +79,54 @@ export default {
             a : '',
             b : '',
             p : '24',
+            Px: '',
+            Py: '',
+            Qx: '',
+            Qy: '',
+            n: '',
+            result: ''
         }
     },
     methods: {
+        plus: function() {
+            if (!(this.Px && this.Py && this.Qx && this.Qy)) {
+                this.result = 'Moi nhap toa do cua P va Q';
+                return;
+            }
+            let P = this.c.getPoint(parseInt(this.Px), parseInt(this.Py));
+            let Q = this.c.getPoint(parseInt(this.Qx), parseInt(this.Qy));
+            if (typeof P === 'undefined') {
+                this.result = 'P khong thuoc tren duong Elliptic';
+                return;
+            }
+            if (typeof Q === 'undefined') {
+                this.result = 'P khong thuoc tren duong Elliptic';
+                return;
+            }
+            this.result = (`P(${this.Px},${this.Py}) + Q(${this.Qx},${this.Qy}) = ${P.plus(Q).toString()}`);
+        },
+        multiply: function () {
+            if (!(this.Px && this.Py && this.n)) {
+                this.result = 'Moi nhap toa do P và n';
+                return;
+            }
+            let P = this.c.getPoint(parseInt(this.Px), parseInt(this.Py));
+
+            if (typeof P === 'undefined') {
+                this.result = 'P khong thuoc tren duong Elliptic';
+                return;
+            }
+
+            if (this.n <= 0) {
+                this.result = `${this.n}P(${this.Px},${this.Py}) = (0,0)`;
+                return;
+            }
+
+            let generate = P.generate();
+            let _result = generate[(this.n % generate.length) - 1];
+
+            this.result = (`${this.n}P(${this.Px},${this.Py}) = ${_result?.toString()}`);
+        },
         reset: function () {
             this.a = ''
             this.b = ''
@@ -93,6 +158,11 @@ export default {
         points () {
             if (this.a && this.b && this.p) {
                 return curve(this.a, this.b, this.p).getPoints().slice(1)
+            } else return undefined
+        },
+        c () {
+            if (this.a && this.b && this.p) {
+                return curve(this.a, this.b, this.p)
             } else return undefined
         },
         point_first () {
