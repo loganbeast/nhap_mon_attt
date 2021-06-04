@@ -1,5 +1,4 @@
-## Project Demo For Information Security Algorithms
-
+## Project demo cho viec xay dung, ky, kiem tra chu ky cho 3 he mat RSA, Elgamal, duong cong Elliptic
 
 ## Project setup
 ```
