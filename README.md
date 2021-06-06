@@ -1,5 +1,8 @@
 ## Project demo cho viec xay dung, ky, kiem tra chu ky cho 3 he mat RSA, Elgamal, duong cong Elliptic
 
+## Tong hop cac ham xu ly thuat toan dat trong folder algorithm
+##  rsa, elgamal, elliptic
+
 ## Project setup
 ```
 npm install
