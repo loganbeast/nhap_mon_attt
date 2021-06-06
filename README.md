@@ -3,6 +3,7 @@
 ## Tổng hợp các hàm xử lý logic, thuật toán được đặt trong folder algorithm/(rsa, elgamal, elliptic),...
 
 ## Các chạy và setup project
+--- Cài đặt nodejs, vuejs.
 ```
 npm install
 ```
