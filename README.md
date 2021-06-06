@@ -1,27 +1,11 @@
 ## Project demo cho viec xay dung, ky, kiem tra chu ky cho 3 he mat RSA, Elgamal, duong cong Elliptic
 
-## Tong hop cac ham xu ly thuat toan dat trong folder algorithm
-##  rsa, elgamal, elliptic
+## Tổng hợp các hàm xử lý logic, thuật toán được đặt trong folder algorithm/(rsa, elgamal, elliptic),...
 
-## Project setup
+## Các chạy và setup project
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
